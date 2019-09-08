@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gaocimi.flashpig.dao.HairstylistMapper" >
+  <resultMap id="BaseResultMap" type="com.gaocimi.flashpig.entity.Hairstylist" >
+    <constructor >
+      <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="content" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="city" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="district" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="address" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="longitude" jdbcType="DOUBLE" javaType="java.lang.Double" />
+      <arg column="latitude" jdbcType="DOUBLE" javaType="java.lang.Double" />
+      <arg column="shop_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="hairstylist_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="available_time" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="attention" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="point" jdbcType="DOUBLE" javaType="java.lang.Double" />
+      <arg column="image_list" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="order_sum" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="rank_value" jdbcType="DOUBLE" javaType="java.lang.Double" />
+    </constructor>
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, content, city, district, address, longitude, latitude, shop_name, hairstylist_name, 
+    available_time, attention, point, image_list, create_time, order_sum, rank_value
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gaocimi.flashpig.entity.HairstylistExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from hairstylist
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from hairstylist
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from hairstylist
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.gaocimi.flashpig.entity.HairstylistExample" >
+    delete from hairstylist
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.gaocimi.flashpig.entity.Hairstylist" >
+    insert into hairstylist (id, content, city, 
+      district, address, longitude, 
+      latitude, shop_name, hairstylist_name, 
+      available_time, attention, point, 
+      image_list, create_time, order_sum, 
+      rank_value)
+    values (#{id,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, 
+      #{district,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{longitude,jdbcType=DOUBLE}, 
+      #{latitude,jdbcType=DOUBLE}, #{shopName,jdbcType=VARCHAR}, #{hairstylistName,jdbcType=VARCHAR}, 
+      #{availableTime,jdbcType=VARCHAR}, #{attention,jdbcType=VARCHAR}, #{point,jdbcType=DOUBLE}, 
+      #{imageList,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{orderSum,jdbcType=INTEGER}, 
+      #{rankValue,jdbcType=DOUBLE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gaocimi.flashpig.entity.Hairstylist" >
+    insert into hairstylist
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="city != null" >
+        city,
+      </if>
+      <if test="district != null" >
+        district,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="longitude != null" >
+        longitude,
+      </if>
+      <if test="latitude != null" >
+        latitude,
+      </if>
+      <if test="shopName != null" >
+        shop_name,
+      </if>
+      <if test="hairstylistName != null" >
+        hairstylist_name,
+      </if>
+      <if test="availableTime != null" >
+        available_time,
+      </if>
+      <if test="attention != null" >
+        attention,
+      </if>
+      <if test="point != null" >
+        point,
+      </if>
+      <if test="imageList != null" >
+        image_list,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="orderSum != null" >
+        order_sum,
+      </if>
+      <if test="rankValue != null" >
+        rank_value,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="district != null" >
+        #{district,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null" >
+        #{longitude,jdbcType=DOUBLE},
+      </if>
+      <if test="latitude != null" >
+        #{latitude,jdbcType=DOUBLE},
+      </if>
+      <if test="shopName != null" >
+        #{shopName,jdbcType=VARCHAR},
+      </if>
+      <if test="hairstylistName != null" >
+        #{hairstylistName,jdbcType=VARCHAR},
+      </if>
+      <if test="availableTime != null" >
+        #{availableTime,jdbcType=VARCHAR},
+      </if>
+      <if test="attention != null" >
+        #{attention,jdbcType=VARCHAR},
+      </if>
+      <if test="point != null" >
+        #{point,jdbcType=DOUBLE},
+      </if>
+      <if test="imageList != null" >
+        #{imageList,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderSum != null" >
+        #{orderSum,jdbcType=INTEGER},
+      </if>
+      <if test="rankValue != null" >
+        #{rankValue,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.gaocimi.flashpig.entity.HairstylistExample" resultType="java.lang.Integer" >
+    select count(*) from hairstylist
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update hairstylist
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.content != null" >
+        content = #{record.content,jdbcType=VARCHAR},
+      </if>
+      <if test="record.city != null" >
+        city = #{record.city,jdbcType=VARCHAR},
+      </if>
+      <if test="record.district != null" >
+        district = #{record.district,jdbcType=VARCHAR},
+      </if>
+      <if test="record.address != null" >
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.longitude != null" >
+        longitude = #{record.longitude,jdbcType=DOUBLE},
+      </if>
+      <if test="record.latitude != null" >
+        latitude = #{record.latitude,jdbcType=DOUBLE},
+      </if>
+      <if test="record.shopName != null" >
+        shop_name = #{record.shopName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hairstylistName != null" >
+        hairstylist_name = #{record.hairstylistName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.availableTime != null" >
+        available_time = #{record.availableTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attention != null" >
+        attention = #{record.attention,jdbcType=VARCHAR},
+      </if>
+      <if test="record.point != null" >
+        point = #{record.point,jdbcType=DOUBLE},
+      </if>
+      <if test="record.imageList != null" >
+        image_list = #{record.imageList,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.orderSum != null" >
+        order_sum = #{record.orderSum,jdbcType=INTEGER},
+      </if>
+      <if test="record.rankValue != null" >
+        rank_value = #{record.rankValue,jdbcType=DOUBLE},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update hairstylist
+    set id = #{record.id,jdbcType=INTEGER},
+      content = #{record.content,jdbcType=VARCHAR},
+      city = #{record.city,jdbcType=VARCHAR},
+      district = #{record.district,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=VARCHAR},
+      longitude = #{record.longitude,jdbcType=DOUBLE},
+      latitude = #{record.latitude,jdbcType=DOUBLE},
+      shop_name = #{record.shopName,jdbcType=VARCHAR},
+      hairstylist_name = #{record.hairstylistName,jdbcType=VARCHAR},
+      available_time = #{record.availableTime,jdbcType=VARCHAR},
+      attention = #{record.attention,jdbcType=VARCHAR},
+      point = #{record.point,jdbcType=DOUBLE},
+      image_list = #{record.imageList,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      order_sum = #{record.orderSum,jdbcType=INTEGER},
+      rank_value = #{record.rankValue,jdbcType=DOUBLE}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gaocimi.flashpig.entity.Hairstylist" >
+    update hairstylist
+    <set >
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="district != null" >
+        district = #{district,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null" >
+        longitude = #{longitude,jdbcType=DOUBLE},
+      </if>
+      <if test="latitude != null" >
+        latitude = #{latitude,jdbcType=DOUBLE},
+      </if>
+      <if test="shopName != null" >
+        shop_name = #{shopName,jdbcType=VARCHAR},
+      </if>
+      <if test="hairstylistName != null" >
+        hairstylist_name = #{hairstylistName,jdbcType=VARCHAR},
+      </if>
+      <if test="availableTime != null" >
+        available_time = #{availableTime,jdbcType=VARCHAR},
+      </if>
+      <if test="attention != null" >
+        attention = #{attention,jdbcType=VARCHAR},
+      </if>
+      <if test="point != null" >
+        point = #{point,jdbcType=DOUBLE},
+      </if>
+      <if test="imageList != null" >
+        image_list = #{imageList,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderSum != null" >
+        order_sum = #{orderSum,jdbcType=INTEGER},
+      </if>
+      <if test="rankValue != null" >
+        rank_value = #{rankValue,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gaocimi.flashpig.entity.Hairstylist" >
+    update hairstylist
+    set content = #{content,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      district = #{district,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      longitude = #{longitude,jdbcType=DOUBLE},
+      latitude = #{latitude,jdbcType=DOUBLE},
+      shop_name = #{shopName,jdbcType=VARCHAR},
+      hairstylist_name = #{hairstylistName,jdbcType=VARCHAR},
+      available_time = #{availableTime,jdbcType=VARCHAR},
+      attention = #{attention,jdbcType=VARCHAR},
+      point = #{point,jdbcType=DOUBLE},
+      image_list = #{imageList,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      order_sum = #{orderSum,jdbcType=INTEGER},
+      rank_value = #{rankValue,jdbcType=DOUBLE}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
